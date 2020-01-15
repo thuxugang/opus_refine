@@ -66,7 +66,7 @@ Docker 18.09.7
 
 1. Download OPUS-Rota2 docker image.
 
-   The docker image we used is hosted on [Baidu Drive](https://pan.baidu.com/s/1aS4xWAJKZLcoz-noaFcm4Q) with password `xxx`.
+   The docker image we used is hosted on [Baidu Drive](https://pan.baidu.com/s/1Jey4nMyt55zwIq4hY5CQxw) with password `rxwq`.
 
 2. Docker image preparation.
    ```
