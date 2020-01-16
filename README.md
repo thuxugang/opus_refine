@@ -88,7 +88,7 @@ Docker 18.09.7
    cd /home/opus_refine
    ./opus_refine
    ```    
-   The configurations we used for Torsion Angles Refinement and Structural Refinement are placed in `configs`, you can simpliy switch them with the `opus_refine.ini`. We put constrained contact maps info into `constains_files/contact_maps`, constrained torsional angles info into `constains_files/torsion_angles` and initial structures info into `constains_files/init_structures`. Our results can be found in `fold_output`.
+   The configurations we used for Torsion Angles Refinement and Structural Refinement are placed in `configs`, you can simpliy switch and rename them with `opus_refine.ini`. We put the constrained contact map files and their corresponding list into `constains_files/contact_maps`, constrained torsional angles files and their corresponding list into `constains_files/torsion_angles` and initial structures files and their corresponding list into `constains_files/init_structures`. Our results can be found in `fold_output`.
    
 5. Run OPUS-Refine Score for decoy recognition.
 
@@ -96,9 +96,14 @@ Docker 18.09.7
    cd /home/opus_refine_score
    ./opus_refine_score
    ```    
-   First, you need to put each constrained file into `constains_files`, otherwise, you get the OPUS-CSF results. Then, format your inputs as our examples shown in `opus_refines_list.txt`. 
+   First, you need to put each constrained file into `constains_files`, otherwise, you get OPUS-CSF score. Then, format your inputs as our examples shown in `opus_refines_list.txt`. 
    
-
+   ```
+   > 1abv_.pdb
+   /home/opus_refine_score/test/1abv_.pdb
+   ```
+      
+   The first line is the filename which is used to locate the constrained files through each file list in `constains_files`. The second line is the path.
 
 ## Reference 
 ```bibtex
