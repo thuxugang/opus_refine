@@ -2,6 +2,55 @@
 
 Protein backbone torsion angles (Phi and Psi) are crucial for protein local conformation description. In this paper, we propose a general post-processing method for all prediction methods, namely OPUS-Refine, which may contribute to the field in a different way. OPUS-Refine is a sampling-based method, therefore, the results of other prediction methods can be used as its constraints. After OPUS-Refine refinement, for instance, the accuracy of Phi/Psi predicted by SPIDER3 and SPOT-1D are both increased. In addition, to facilitate the sampling efficiency, we construct a neighbor-dependent statistical torsion angles sampling database, namely OPUS-TA, which may be useful for other sampling-based methods. Furthermore, we also introduce the contact map predicted by RaptorX to OPUS-Refine as a global structural constraint. After refinement, comparing to the predicted structures obtained from RaptorX online server, the accuracy of both global structural configurations (measured by TM-score and RMSD) and local structural configurations (measured by Phi/Psi) results are improved. OPUS-Refine is a highly efficient framework, it takes only about 4s to refine the torsion angles and 30s to refine the global structural of a protein with 100 residues in length on a typical desktop personal computer. Therefore, the sampling-based feature and the efficiency of OPUS-Refine offer greater potentiality for it to takes advantage of any other method to achieve a better performance.
 
+## OPUS-TA
+
+We divide the structures in the entire PDB by all possible overlapping segments (3, 5, 7-residues in length), then we gather the segments which have the same sequence and use the values of middle residue’s torsion angles as their features. Gaussian mixture model (GMM) is used to model the distribution. In each modeling, we assume that the values of Phi and Psi are correlated, and the number of Gaussian components in each GMM is dynamic. We set the number of components from 1 to 10 and model the distribution in order. If the standard deviation of Phi and Psi in all Gaussian components are less than 10, we use the value of current number of components for modeling. Otherwise, we try the next value in the sequence. Finally, we save the means and the covariance of GMM for this sequence into corresponding TA lookup table. We only consider the segments which appear at least 5 times in entire PDB.
+
+For protein backbone torsion angles sampling, we first divide the target structure by all possible overlapping segments (3, 5, 7-residues in length). Then, for every segment findable in corresponding TA lookup table, we extract its GMM parameters. Noted that, if a residue has more than one set of GMM parameters (means and covariance) extracted from the models modeling by different length of segments, we only keep the GMM parameters derived from the longest one. Thus, each residue would have only one set of GMM parameters.
+
+### Usage
+
+1. Download OPUS-TA databases.
+
+   The three OPUS-TA databases (3, 5, 7-residues in length) we used are saved in the MongoDB, the exported collections are hosted on [Baidu Drive](xxx) with password `xxxx`.
+
+2. Import OPUS-TA into your MongoDB.
+   ```
+   ./mongoimport -d ta_db -c ta_3 --file /your_path/ta_3.dat --type json
+   ./mongoimport -d ta_db -c ta_5 --file /your_path/ta_5.dat --type json
+   ./mongoimport -d ta_db -c ta_7 --file /your_path/ta_7.dat --type json
+   
+   db.ta_3.ensureIndex({"key":1},{"unique":true})
+   db.ta_5.ensureIndex({"key":1},{"unique":true})
+   db.ta_7.ensureIndex({"key":1},{"unique":true})
+   ```  
+
+3.Use OPUS-TA as your sampling database.
+
+   i. Data Format
+   ```
+   {"key": "GWGVD",
+   "value": "67.99999999999993_27.999999999999968#1.0000009999999988_0.9999999999999989_0.9999999999999989_1.0000009999999988#0.222222222222;-59.571428571428555_-39.14285714285713#13.6734703877551_-16.510204081632647_-16.510204081632647_24.122449979591828#0.777777777778"}
+   ```
+   ii. Parse
+   ```
+   67.99999999999993_27.999999999999968#1.0000009999999988_0.9999999999999989_0.9999999999999989_1.0000009999999988#0.222222222222;
+   
+   67.99999999999993_27.999999999999968 -> GMM parameters phi_psi mean
+   [67.99999999999993, 27.999999999999968]
+   1.0000009999999988_0.9999999999999989_0.9999999999999989_1.0000009999999988 -> GMM parameters cov
+   [[1.0000009999999988, 0.9999999999999989],
+    [0.9999999999999989, 1.0000009999999988]]
+   0.222222222222 -> occurence probability
+   
+   -59.571428571428555_-39.14285714285713#13.6734703877551_-16.510204081632647_-16.510204081632647_24.122449979591828#0.777777777778
+   ...
+   ```
+   iii. Python code
+   ```
+   phi_sampled, psi_sampled = np.random.multivariate_normal(mean, cov)
+   ```
+   
 ## Test Sets
 
 We used 58 proteins in Rosetta decoy set (Rosetta) and 55 proteins in I-Tasser decoy set (I-Tasser) as the modeling test sets. Therefore, the performance of OPUS-Refine can be associated with the OPUS-CSF decoy recognition ability. Noted that ‘1ogwA_’ in I-Tasser was removed because it contains uncommon residues in its main chain.
