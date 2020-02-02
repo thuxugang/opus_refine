@@ -34,23 +34,38 @@ For protein backbone torsion angles sampling, we first divide the target structu
    ```
    ii. Parse
    ```
-   67.99999999999993_27.999999999999968#1.0000009999999988_0.9999999999999989_0.9999999999999989_1.0000009999999988#0.222222222222;
+   1) 67.99999999999993_27.999999999999968#1.0000009999999988_0.9999999999999989_0.9999999999999989_1.0000009999999988#0.222222222222;
    
    67.99999999999993_27.999999999999968 -> GMM parameters phi_psi mean
    [67.99999999999993, 27.999999999999968]
+
    1.0000009999999988_0.9999999999999989_0.9999999999999989_1.0000009999999988 -> GMM parameters cov
    [[1.0000009999999988, 0.9999999999999989],
     [0.9999999999999989, 1.0000009999999988]]
+    
    0.222222222222 -> occurence probability
    
-   -59.571428571428555_-39.14285714285713#13.6734703877551_-16.510204081632647_-16.510204081632647_24.122449979591828#0.777777777778
-   ...
+   2)-59.571428571428555_-39.14285714285713#13.6734703877551_-16.510204081632647_-16.510204081632647_24.122449979591828#0.777777777778
+   
+   -59.571428571428555_-39.14285714285713 -> GMM parameters phi_psi mean
+   [-59.571428571428555, -39.14285714285713]
+
+   13.6734703877551_-16.510204081632647_-16.510204081632647_24.122449979591828 -> GMM parameters cov
+   [[13.6734703877551, -16.510204081632647],
+    [-16.510204081632647, 24.122449979591828]]
+    
+   0.777777777778 -> occurence probability
+   
    ```
    iii. Python code
    ```
    phi_sampled, psi_sampled = np.random.multivariate_normal(mean, cov)
    ```
-   
+
+## OPUS-CSF
+
+The information of OPUS-CSF can be found [here](https://github.com/thuxugang/opus_csf).
+
 ## Test Sets
 
 We used 58 proteins in Rosetta decoy set (Rosetta) and 55 proteins in I-Tasser decoy set (I-Tasser) as the modeling test sets. Therefore, the performance of OPUS-Refine can be associated with the OPUS-CSF decoy recognition ability. Noted that ‘1ogwA_’ in I-Tasser was removed because it contains uncommon residues in its main chain.
