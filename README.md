@@ -128,7 +128,7 @@ Docker 18.09.7
 
 ## Usage
 
-1. Download OPUS-Rota2 docker image.
+1. Download OPUS-Refine docker image.
 
    The docker image we used is hosted on [Baidu Drive](https://pan.baidu.com/s/1Jey4nMyt55zwIq4hY5CQxw) with password `rxwq`.
 
