@@ -12,7 +12,7 @@ For protein backbone torsion angles sampling, we first divide the target structu
 
 1. Download OPUS-TA databases.
 
-   The three OPUS-TA databases (3, 5, 7-residues in length) we used are saved in the MongoDB, the exported collections are hosted on [Baidu Drive](https://pan.baidu.com/s/1hjHMGkVfA3kM9QPQi126-w) with password `2kw9`.
+   The three OPUS-TA databases (3, 5, 7-residues in length) we used are saved in the MongoDB, the exported collections are hosted on [Baidu Drive](https://pan.baidu.com/s/1hjHMGkVfA3kM9QPQi126-w) with password `2kw9`. Also, they can be downloaded directly from [Here](http://ma-lab.rice.edu/dist/opus_ta_db.zip).
 
 2. Import OPUS-TA into your MongoDB.
    ```
@@ -130,7 +130,7 @@ Docker 18.09.7
 
 1. Download OPUS-Refine docker image.
 
-   The docker image we used is hosted on [Baidu Drive](https://pan.baidu.com/s/1Jey4nMyt55zwIq4hY5CQxw) with password `rxwq`.
+   The docker image we used is hosted on [Baidu Drive](https://pan.baidu.com/s/1Jey4nMyt55zwIq4hY5CQxw) with password `rxwq`. Also, it can be downloaded directly from [Here](http://ma-lab.rice.edu/dist/opus-refine_docker.zip).
 
 2. Docker image preparation.
    ```
