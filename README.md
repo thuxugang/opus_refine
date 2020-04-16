@@ -128,6 +128,8 @@ Docker 18.09.7
 
 ## Usage
 
+***The data in each line of the input file should be separated by a single ' ' or '\t'. '#' should be added at the beginning of each comment line.***
+
 1. Download OPUS-Refine docker image.
 
    The docker image we used is hosted on [Baidu Drive](https://pan.baidu.com/s/1Jey4nMyt55zwIq4hY5CQxw) with password `rxwq`. Also, it can be downloaded directly from [Here](http://ma-lab.rice.edu/dist/opus-refine_docker.zip).
